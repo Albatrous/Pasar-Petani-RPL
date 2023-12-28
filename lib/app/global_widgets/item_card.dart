@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,8 +20,11 @@ class ItemCard extends StatelessWidget {
             ? barang.status.last.updatedAt
             : barang.createdAt);
     return GestureDetector(
-      onTap: () => {
-        Get.toNamed('/product-detail', arguments: {'barang': barang})
+      onTap: () {
+        if (kDebugMode) {
+          print('ItemCard: ${barang.name}');
+        }
+        Get.toNamed('/product-detail', arguments: {'barang': barang});
       },
       child: Container(
         height: 96,

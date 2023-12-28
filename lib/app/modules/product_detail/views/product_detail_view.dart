@@ -139,43 +139,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Center(
-                child: ButtonBar(
-                  mainAxisSize: MainAxisSize.min,
-                  alignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.red,
-                        minimumSize: Size(
-                            MediaQuery.of(context).size.width * 0.4, 44 * ffem),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        side: const BorderSide(color: Colors.red, width: 1),
-                      ),
-                      child: const Text('Tolak'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all<Size>(Size(
-                              MediaQuery.of(context).size.width * 0.4,
-                              44 * ffem)),
-                          elevation: MaterialStateProperty.all<double>(0),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xff62C172)),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xffFFFFFF)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ))),
-                      child: const Text('Diterima'),
-                    ),
-                  ],
-                ),
+                child: controller.buttonDetail(context),
               ),
             ),
           ],
