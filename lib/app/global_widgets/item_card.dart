@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pasar_petani/app/models/barang.dart';
 
-class ItemCard extends StatelessWidget {
+class ItemCard extends StatefulWidget {
   final Barang barang;
 
   const ItemCard({
@@ -14,17 +14,27 @@ class ItemCard extends StatelessWidget {
   });
 
   @override
+  State<ItemCard> createState() => _ItemCardState();
+}
+
+class _ItemCardState extends State<ItemCard> {
+  @override
   Widget build(BuildContext context) {
+    double baseWidth = 375;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     final String dateString = DateFormat('dd MMMM yyyy').format(
-        barang.status.isNotEmpty
-            ? barang.status.last.updatedAt
-            : barang.createdAt);
+        widget.barang.status.isNotEmpty
+            ? widget.barang.status.last.updatedAt
+            : widget.barang.createdAt);
     return GestureDetector(
       onTap: () {
         if (kDebugMode) {
-          print('ItemCard: ${barang.name}');
+          print('ItemCard: ${widget.barang.name}');
         }
-        Get.toNamed('/product-detail', arguments: {'barang': barang});
+        Get.toNamed('/product-detail',
+            arguments: {'detailProduct': widget.barang});
+        setState(() {});
       },
       child: Container(
         height: 96,
@@ -42,7 +52,7 @@ class ItemCard extends StatelessWidget {
                 height: 68,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(barang.fotoUrl),
+                      image: NetworkImage(widget.barang.fotoUrl),
                       filterQuality: FilterQuality.low,
                       alignment: Alignment.center,
                       fit: BoxFit.contain),
@@ -56,7 +66,7 @@ class ItemCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      barang.name,
+                      widget.barang.name,
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
@@ -66,10 +76,10 @@ class ItemCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 2),
                       child: Text(
-                        barang.petani['nama'],
+                        widget.barang.petani['nama'],
                         style: GoogleFonts.poppins(
                             color: const Color(0xffAAAAAA),
-                            fontSize: 12,
+                            fontSize: 10 * ffem,
                             fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -80,7 +90,11 @@ class ItemCard extends StatelessWidget {
               Column(
                 children: [
                   TextButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Get.toNamed('/product-detail',
+                          arguments: {'detailProduct': widget.barang}),
+                      setState(() {})
+                    },
                     style: ButtonStyle(
                         minimumSize:
                             MaterialStateProperty.all<Size>(const Size(82, 20)),
@@ -106,7 +120,7 @@ class ItemCard extends StatelessWidget {
                   Text(dateString,
                       style: GoogleFonts.poppins(
                           color: const Color(0xffAAAAAA),
-                          fontSize: 12,
+                          fontSize: 10 * ffem,
                           fontWeight: FontWeight.w400)),
                 ],
               )

@@ -7,6 +7,7 @@ import 'package:pasar_petani/app/models/barang.dart';
 import 'package:pasar_petani/app/models/koperasi.dart';
 import 'package:pasar_petani/app/services/authentication.dart';
 import 'package:pasar_petani/app/services/permintaan.dart';
+import 'package:pasar_petani/config/theme/colors.dart';
 
 class HomeController extends GetxController {
   static const primaryColor = Color(0xff62C172);
@@ -14,7 +15,7 @@ class HomeController extends GetxController {
   static const accentColor = Color(0xffF4FBF4);
   static const primaryShade1 = Color(0xffD1F3D1);
 
-  int currentIndex = 0;
+  RxInt currentIndex = 0.obs;
 
   late Future<void> itemInit;
   late Future<void> koperasiInit;
@@ -34,8 +35,7 @@ class HomeController extends GetxController {
 
   void currentIndexChange(int index) {
     refreshListBarang();
-    currentIndex = index;
-    update();
+    currentIndex.value = index;
   }
 
   resetStatus() {
@@ -63,7 +63,7 @@ class HomeController extends GetxController {
             case 'ditolak':
               statusBarang['selesai']?.add(item);
               break;
-            case 'selesai':
+            case 'diterima':
               statusBarang['selesai']?.add(item);
               break;
             default:
@@ -84,6 +84,7 @@ class HomeController extends GetxController {
 
   Widget buildListTab(List<Barang> items, context) {
     return RefreshIndicator(
+      color: CustomColors.primaryColor,
       onRefresh: refreshListBarang,
       child: items.isEmpty
           ? SingleChildScrollView(

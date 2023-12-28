@@ -23,7 +23,7 @@ class LoginController extends GetxController {
         }
         Get.snackbar('Sukses', 'Login berhasil');
         storage.write('access_token', response.accessToken);
-        Get.toNamed('/home');
+        Get.offNamed('/home');
       } catch (e) {
         Get.snackbar('Gagal', e.toString());
       }

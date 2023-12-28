@@ -17,6 +17,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
         appBar: AppBar(
           title: const Text('Detail Permintaan'),
           centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

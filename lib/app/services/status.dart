@@ -26,6 +26,22 @@ class Status extends http.BaseClient {
     return client.send(request);
   }
 
+  Future<void> payment(int idMoney, String nominal) async {
+    Future<http.Response> result = http.post(
+      Uri.parse('$_baseUrl/saldo/kirim/$idMoney'),
+      headers: headers,
+      body: jsonEncode({
+        'nominal_pemasukan': nominal,
+      }),
+    );
+
+    result.then((value) {
+      if (kDebugMode) {
+        print(value.body);
+      }
+    });
+  }
+
   void addStatus(int idPermintaan, StatusPermintaan status) {
     String keterangan = '';
     String statusString = 'baru';
