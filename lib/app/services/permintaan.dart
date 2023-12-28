@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:pasar_petani/app/models/barang.dart';
 import 'package:pasar_petani/config/constants.dart';
@@ -27,10 +26,6 @@ class Permintaan extends http.BaseClient {
       headers: headers,
     );
 
-    if (kDebugMode) {
-      print(response.body);
-    }
-
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)['data'].isEmpty) {
         return [];
@@ -47,10 +42,6 @@ class Permintaan extends http.BaseClient {
       Uri.parse('$_baseUrl/permintaan/$id'),
       headers: headers,
     );
-
-    if (kDebugMode) {
-      print(response.body);
-    }
 
     if (response.statusCode == 200) {
       return Barang.fromJson(jsonDecode(response.body)['data']);

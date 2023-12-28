@@ -12,11 +12,13 @@ class LargeButton extends StatelessWidget {
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
+    return FilledButton(
+      style: FilledButton.styleFrom(
           elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          minimumSize: Size(double.infinity, 44 * ffem)),
+          minimumSize: Size(MediaQuery.of(context).size.width, 44 * ffem)),
+      // minimumSize: Size(double.infinity, 44 * ffem)),
       onPressed: onPressed,
       child: Text(text, style: Theme.of(context).textTheme.labelLarge),
     );

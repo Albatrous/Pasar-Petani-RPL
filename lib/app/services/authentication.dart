@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:pasar_petani/app/models/koperasi.dart';
 import 'package:pasar_petani/config/constants.dart';
 
 class Authentication extends http.BaseClient {
@@ -26,7 +27,8 @@ class Authentication extends http.BaseClient {
     );
 
     if (response.statusCode == 200) {
-      final Koperasi koperasi = Koperasi.fromJson(jsonDecode(response.body));
+      final Koperasi koperasi =
+          Koperasi.fromJsonLogin(jsonDecode(response.body));
       await storage.write('access_token', koperasi.accessToken!);
       return koperasi;
     } else {
@@ -49,50 +51,22 @@ class Authentication extends http.BaseClient {
     );
 
     if (response.statusCode == 200) {
-      return Koperasi.fromJson(jsonDecode(response.body));
+      return Koperasi.fromJsonLogin(jsonDecode(response.body));
     } else {
       throw Exception(jsonDecode(response.body)['message']);
     }
   }
-}
 
-class Koperasi {
-  final int id;
-  final String name;
-  final String email;
-  final String address;
-  final String phoneNumber;
-  final String photo;
-  final String createdAt;
-  final String updatedAt;
-  final String tokenType;
-  final String? accessToken;
-
-  Koperasi({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.address,
-    required this.phoneNumber,
-    required this.photo,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.tokenType,
-    this.accessToken,
-  });
-
-  factory Koperasi.fromJson(Map<String, dynamic> json) {
-    return Koperasi(
-      id: json['user']['id'],
-      name: json['user']['nama'],
-      email: json['user']['email'],
-      address: json['user']['alamat'],
-      phoneNumber: json['user']['no_hp'],
-      photo: json['user']['foto'],
-      createdAt: json['user']['created_at'],
-      updatedAt: json['user']['updated_at'],
-      tokenType: json['token_type'],
-      accessToken: json['access_token'],
+  Future<Koperasi> getProfile() async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/user'),
+      headers: {'Authorization': 'Bearer ${storage.read('access_token')}'},
     );
+
+    if (response.statusCode == 200) {
+      return Koperasi.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(jsonDecode(response.body)['message']);
+    }
   }
 }

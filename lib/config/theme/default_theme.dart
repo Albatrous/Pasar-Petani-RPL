@@ -6,6 +6,7 @@ final ThemeData defaultTheme = ThemeData(
   primaryColor: CustomColors.primaryColor,
   primarySwatch: CustomColors().primaryMaterialColor,
   fontFamily: GoogleFonts.poppins().fontFamily,
+  useMaterial3: true,
   buttonTheme: const ButtonThemeData(
     buttonColor: CustomColors.primaryColor,
     shape: RoundedRectangleBorder(
