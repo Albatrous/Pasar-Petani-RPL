@@ -8,12 +8,12 @@ With the continuous increase in prices for agricultural products, Pasar Petani a
 |       Features       | Progress |
 |:--------------------:|:--------:|
 |        Login         |   Done   |
-|        Logout        | On-going |
+|        Logout        |   Done   |
 |       Register       |   Done   |
 |         Home         |   Done   |
-| Memproses Permintaan | On-going |
-| Menerima Permintaan  | On-going |
-|    Mengirim Uang     | On-going |
+| Memproses Permintaan |   Done   |
+| Menerima Permintaan  |   Done   |
+|    Mengirim Uang     |   Done   |
 
 
 ## Getting Started

@@ -8,13 +8,15 @@ class LoginController extends GetxController {
   final loginFormKey = GlobalKey<FormState>(debugLabel: 'GlobalFormKey #login');
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  var auth = Authentication();
 
   final RxBool hidePassword = true.obs;
 
   Future<void> login() async {
-    if (loginFormKey.currentState!.validate()) {
+    if (loginFormKey.currentState != null &&
+        loginFormKey.currentState!.validate()) {
       try {
-        var response = await Authentication().login(
+        var response = await auth.login(
           email.text,
           password.text,
         );

@@ -29,7 +29,6 @@ class Authentication extends http.BaseClient {
     if (response.statusCode == 200) {
       final Koperasi koperasi =
           Koperasi.fromJsonLogin(jsonDecode(response.body));
-      await storage.write('access_token', koperasi.accessToken!);
       return koperasi;
     } else {
       throw Exception(jsonDecode(response.body)['message']);
